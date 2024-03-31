@@ -25,6 +25,10 @@ void izpis_KMPnext(const int* polje, int len) {
 }
 
 void KMP(const string& text, const string& vzorec) {
+	vector<int> kmpNext;
+    vector<int> index;
+    kmpNext.push_back(-1);
+    kmpNext.push_back(0);
 	/*
 	 * implementacija algoritma KMP 
 	 * za izpis polja KMPnext lahko uporabite funkcijo izpis_KMPnext
