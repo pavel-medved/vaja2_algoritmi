@@ -89,6 +89,16 @@ void sundaySearch(const string &text, const string &vzorec) { //priprava tabele
     for (int i = 0; i < vzorec.size(); i++) {
         BCH[static_cast<uint8_t>(vzorec[i])] = vzorec.size() - i;
     }
+	int j = 0;
+    while (j + vzorec.size() <= text.size()) {
+        for (int i = 0; i < vzorec.size(); i++) {
+            if (vzorec[i] != text[j + i]) {
+
+                j += BCH[text[j + vzorec.size()]];
+                break;
+            }
+        }
+    }
 }
 
 int main(int argc, const char *const argv[]) {
