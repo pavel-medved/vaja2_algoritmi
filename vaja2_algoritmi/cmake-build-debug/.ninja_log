@@ -1,0 +1,6 @@
+# ninja log v5
+1	206	7335248997368251	build.ninja	38220ee643791f07
+1	440	7335249351804320	CMakeFiles/Vaja2_algoritmi.dir/main.cpp.obj	2ffee10361c1972a
+442	935	7335249356702237	Vaja2_algoritmi.exe	2c37795b302fede9
+3	342	7335249437506126	CMakeFiles/Vaja2_algoritmi.dir/main.cpp.obj	2ffee10361c1972a
+343	661	7335249440643804	Vaja2_algoritmi.exe	2c37795b302fede9
