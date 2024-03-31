@@ -83,6 +83,14 @@ void KMP(const string& text, const string& vzorec) {
     delete[]polje;
 }
 
+void sundaySearch(const string &text, const string &vzorec) { //priprava tabele
+    std::vector<uint32_t> BCH(256, vzorec.size() + 1);
+    vector<int> index;
+    for (int i = 0; i < vzorec.size(); i++) {
+        BCH[static_cast<uint8_t>(vzorec[i])] = vzorec.size() - i;
+    }
+}
+
 int main(int argc, const char *const argv[]) {
 	if (argc != 4) {
 		return -1;
