@@ -73,11 +73,14 @@ void KMP(const string& text, const string& vzorec) {
         }
     }
 
-	/*
-	 * implementacija algoritma KMP 
-	 * za izpis polja KMPnext lahko uporabite funkcijo izpis_KMPnext
-	 * Za izpis navidezne spremenljivke index uporabite: out << index << ' ';
-	 */
+	 int *polje=new int[index.size()];
+    for(int i=0;i<index.size();i++)
+    {
+        polje[i]=index[i];
+    }
+    izpis_KMPnext(polje, index.size());
+
+    delete[]polje;
 }
 
 int main(int argc, const char *const argv[]) {
