@@ -58,6 +58,21 @@ void KMP(const string& text, const string& vzorec) {
         prefix++;
     }
 
+	int j = 0;
+    while (j + vzorec.size() <= text.size()) {
+        for (int i = 0; i < vzorec.size(); i++) {
+            if (vzorec[i] != text[j + i]) {
+
+                j += (i - kmpNext[i]);
+                break;
+            }
+            if (i + 1 == vzorec.size()) {
+                index.push_back(j);
+                j += vzorec.size();
+            }
+        }
+    }
+
 	/*
 	 * implementacija algoritma KMP 
 	 * za izpis polja KMPnext lahko uporabite funkcijo izpis_KMPnext
