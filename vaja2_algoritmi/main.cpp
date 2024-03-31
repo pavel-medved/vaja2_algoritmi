@@ -97,6 +97,10 @@ void sundaySearch(const string &text, const string &vzorec) { //priprava tabele
                 j += BCH[text[j + vzorec.size()]];
                 break;
             }
+            if (i + 1 == vzorec.size()) {
+                index.push_back(j);
+                j += vzorec.size();
+            }
         }
     }
 }
