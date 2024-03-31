@@ -29,6 +29,35 @@ void KMP(const string& text, const string& vzorec) {
     vector<int> index;
     kmpNext.push_back(-1);
     kmpNext.push_back(0);
+
+	int prefix = 1;
+
+    for (int i = 2; i < vzorec.size(); i++) {
+        vector<char> firstPrefix;
+        vector<char> secondPrefix;
+
+        for (int j = 1; j <= prefix; j++) {
+
+            firstPrefix.push_back(vzorec[j - 1]);
+            secondPrefix.insert(secondPrefix.begin(), vzorec[i - j]);
+
+        }
+        for (int j = i; j > 0; j--) {
+            string firstString(firstPrefix.begin(), firstPrefix.end());
+            string secondString(secondPrefix.begin(), secondPrefix.end());
+            if (firstString == secondString) {
+                kmpNext.push_back(firstString.size());
+                break;
+            }
+            secondPrefix.erase(secondPrefix.begin());
+            firstPrefix.pop_back();
+            if (j == 1) {
+                kmpNext.push_back(0);
+            }
+        }
+        prefix++;
+    }
+
 	/*
 	 * implementacija algoritma KMP 
 	 * za izpis polja KMPnext lahko uporabite funkcijo izpis_KMPnext
