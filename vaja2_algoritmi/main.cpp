@@ -103,6 +103,13 @@ void sundaySearch(const string &text, const string &vzorec) { //priprava tabele
             }
         }
     }
+	int *polje=new int[index.size()];
+    for(int i=0;i<index.size();i++)
+    {
+        polje[i]=index[i];
+    }
+    izpis_KMPnext(polje, index.size());
+    delete[] polje;
 }
 
 int main(int argc, const char *const argv[]) {
@@ -122,7 +129,7 @@ int main(int argc, const char *const argv[]) {
 		KMP(text, vzorec);
 	}
 	else {
-		//Sunday
+		sundaySearch(text, vzorec);//Sunday
 	}
 
 	
