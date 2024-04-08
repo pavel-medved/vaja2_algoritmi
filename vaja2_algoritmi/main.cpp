@@ -1,6 +1,9 @@
 #include <string>
 #include <sstream>
 #include <fstream>
+#include <vector>
+#include <cstdint>
+#include <iostream>
 using namespace std;
 
 ofstream out;
@@ -79,7 +82,10 @@ void KMP(const string& text, const string& vzorec) {
         polje[i]=index[i];
     }
     izpis_KMPnext(polje, index.size());
-
+    for(int i=0;i<kmpNext.size();i++)
+    {
+        out<<kmpNext[i];
+    }
     delete[]polje;
 }
 
@@ -109,6 +115,9 @@ void sundaySearch(const string &text, const string &vzorec) { //priprava tabele
         polje[i]=index[i];
     }
     izpis_KMPnext(polje, index.size());
+    for (int i = 0; i < vzorec.size(); i++) {
+        out<<BCH[static_cast<uint8_t>(vzorec[i])];
+    }
     delete[] polje;
 }
 
