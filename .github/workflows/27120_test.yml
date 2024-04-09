@@ -36,11 +36,5 @@ jobs:
     - name: Compile Main
       run: g++ ${{github.workspace}}/vaja2_algoritmi/main.cpp -o ${{github.workspace}}/vaja2_algoritmi/build/main
 
-    - name: Find Executable Name
-      run: |
-        EXECUTABLE="${{github.workspace}}/vaja2_algoritmi/build/main"
-        echo "Found executable: $EXECUTABLE"
-        chmod +x $EXECUTABLE
-
     - name: Run Found Executable
-      run: $EXECUTABLE 1 "znanstveniki" cmake-build-debug/test-besedilo.txt
+      run: ${{github.workspace}}/vaja2_algoritmi/build/main 1 "znanstveniki" cmake-build-debug/test-besedilo.txt
