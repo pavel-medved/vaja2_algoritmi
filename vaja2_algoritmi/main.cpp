@@ -143,15 +143,15 @@ void test(const string &outputFile) {
 
 int main(int argc, const char *const argv[]) {
 
+    if (argc != 4) {
+        return -1;
+    }
     string text;
     string vzorec;
-    if (argc == 4) {
+
         text = inputText(argv[3]);
         vzorec = argv[2];
-    } else if (argc == 2) {
-        text = inputText("test-besedilo.txt");
-        vzorec = "znanstveniki";
-    }
+
     out.open("out.txt");
 
     if (!out) {
