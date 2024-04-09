@@ -37,4 +37,4 @@ jobs:
       run: g++ ${{github.workspace}}/vaja2_algoritmi/main.cpp -o ${{github.workspace}}/vaja2_algoritmi/build/main
 
     - name: Run Found Executable
-      run: ${{github.workspace}}/vaja2_algoritmi/build/main 1 "znanstveniki" cmake-build-debug/test-besedilo.txt
+      run: ${{github.workspace}}/vaja2_algoritmi/build/main 1 "znanstveniki" cmake-build-debug/test-besedilo.txt > out.txt
