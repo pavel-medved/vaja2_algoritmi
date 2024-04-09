@@ -21,6 +21,9 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
+    - name: Install CMake
+      run: sudo apt-get update && sudo apt-get install -y cmake
+
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
@@ -35,5 +38,6 @@ jobs:
         EXECUTABLE=$(find ${{github.workspace}}/build -type f -executable -name 'my_program')
         echo "Found executable: $EXECUTABLE"
         chmod +x $EXECUTABLE
+
     - name: Run Found Executable
       run: $EXECUTABLE 1 "znanstveniki" cmake-build-debug/test-besedilo.txt
