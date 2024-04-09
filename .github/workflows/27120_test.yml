@@ -1,5 +1,3 @@
-# This starter workflow is for a CMake project running on a single platform. There is a different starter workflow if you need cross-platform coverage.
-# See: https://github.com/actions/starter-workflows/blob/main/ci/cmake-multi-platform.yml
 name: CMake on a single platform
 
 on:
@@ -38,6 +36,4 @@ jobs:
         echo "Found executable: $EXECUTABLE"
         chmod +x $EXECUTABLE
     - name: Run Found Executable
-      run: |
-        $EXECUTABLE 1 "znanstveniki" cmake-build-debug/test-besedilo.txt
-
+      run: $EXECUTABLE 1 "znanstveniki" cmake-build-debug/test-besedilo.txt
