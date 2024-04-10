@@ -5,5 +5,5 @@
 #ifndef VAJA2_TEST_H
 #define VAJA2_TEST_H
 #include <string>
-void test(const std::string &outputFile);
+bool test(const std::string &outputFile);
 #endif //VAJA2_TEST_H

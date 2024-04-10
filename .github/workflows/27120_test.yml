@@ -46,7 +46,14 @@ jobs:
       run: g++ /home/vboxuser/Desktop/actions-runner/_work/vaja2_algoritmi/vaja2_algoritmi/main.cpp /home/vboxuser/Desktop/actions-runner/_work/vaja2_algoritmi/vaja2_algoritmi/test.cpp -o /home/vboxuser/Desktop/actions-runner/_work/vaja2_algoritmi/vaja2_algoritmi/build/main
 
     - name: Run Found Executable
-      run: ${{github.workspace}}/build/main 1 "znanstveniki" ${GITHUB_WORKSPACE}/cmake-build-debug/test-besedilo.txt
+      run: ${{github.workspace}}/build/main test_kmp "znanstveniki" ${GITHUB_WORKSPACE}/cmake-build-debug/test-besedilo.txt
+      if: ${{ failure() }}
+        run: echo "Napaka pri izvajanju programa" > napaka.txt
+        shell: bash
+
+    - name: Show error output
+        # Če je bila napaka, izpišemo vsebino datoteke napaka.txt
+      run: cat napaka.txt
 
     - name: Show output.txt content
       run: cat out.txt

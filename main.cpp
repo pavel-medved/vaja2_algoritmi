@@ -151,10 +151,16 @@ int main(int argc, const char *const argv[]) {
         sundaySearch(text, vzorec);//Sunday
     } else if (strcmp(argv[1], "test_kmp") == 0) {
         KMP(text, vzorec);
-        test("rezultat-kmpNext.txt");
+        if(!test("rezultat-kmpNext.txt"))
+        {
+            return -3;
+        }
     } else if (strcmp(argv[1], "test_sunday") == 0) {
         sundaySearch(text, vzorec);
-        test("rezultat-sundaySearch.txt");
+        if(!test("rezultat-sundaySearch.txt"))
+        {
+            return -4;
+        }
     }
     return 0;
 }
