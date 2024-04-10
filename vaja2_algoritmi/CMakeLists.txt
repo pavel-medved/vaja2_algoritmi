@@ -1,5 +1,9 @@
 cmake_minimum_required(VERSION 3.0)
+<<<<<<< HEAD
 project(vaja2)
+=======
+project(vaja2_algoritmi)
+>>>>>>> 25dc05756df3ece7cb24b78038f544e474e00a7f
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_EXE_LINKER_FLAGS "-static")

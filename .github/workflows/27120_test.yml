@@ -39,4 +39,8 @@ jobs:
     - name: Run Found Executable
       run: ${{github.workspace}}/vaja2_algoritmi/build/main 1 "znanstveniki" /home/runner/work/vaja2_algoritmi/vaja2_algoritmi/vaja2_algoritmi/cmake-build-debug/test-besedilo.txt
     - name: Show output.txt content
+<<<<<<< HEAD
       run: cat out.txt
+=======
+      run: cat out.txt
+>>>>>>> 25dc05756df3ece7cb24b78038f544e474e00a7f
