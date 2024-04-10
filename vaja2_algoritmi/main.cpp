@@ -5,6 +5,8 @@
 #include <cstdint>
 #include <iostream>
 #include <cstring>
+#include "test.h"
+#include "main.h"
 
 using namespace std;
 
@@ -124,22 +126,7 @@ void sundaySearch(const string &text, const string &vzorec) { //priprava tabele
     delete[] polje;
 }
 
-void test(const string &outputFile) {
-    string result = inputText(outputFile);
-    string algorithm = inputText("out.txt");
-    ofstream errorFile("napaka.txt");
-    if (result != algorithm) {
-        if (errorFile.is_open()) {
-            errorFile << "napaka" << endl;
-            errorFile.close();
-        } else {
-            if (errorFile.is_open()) {
-                errorFile << "pravilno" << endl;
-                errorFile.close();
-            }
-        }
-    }
-}
+
 
 int main(int argc, const char *const argv[]) {
 
