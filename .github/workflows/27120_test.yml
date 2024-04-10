@@ -43,10 +43,10 @@ jobs:
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
     - name: Compile Main
-      run: g++ /home/vboxuser/Desktop/actions-runner/_work/vaja2_algoritmi/main.cpp /home/vboxuser/Desktop/actions-runner/_work/vaja2_algoritmi/test.cpp -o /home/vboxuser/Desktop/actions-runner/_work/vaja2_algoritmi/build/main
+      run: g++ /home/vboxuser/Desktop/actions-runner/_work/vaja2_algoritmi/vaja2_algoritmi/main.cpp /home/vboxuser/Desktop/actions-runner/_work/vaja2_algoritmi/vaja2_algoritmi/test.cpp -o /home/vboxuser/Desktop/actions-runner/_work/vaja2_algoritmi/vaja2_algoritmi/build/main
 
     - name: Run Found Executable
-      run: ${{github.workspace}}/vaja2_algoritmi/build/main 1 "znanstveniki" /home/runner/work/vaja2_algoritmi/cmake-build-debug/test-besedilo.txt
+      run: ${{github.workspace}}/vaja2_algoritmi/vaja2_algoritmi/build/main 1 "znanstveniki" /home/runner/work/vaja2_algoritmi/vaja2_algoritmi/cmake-build-debug/test-besedilo.txt
 
     - name: Show output.txt content
       run: cat out.txt
