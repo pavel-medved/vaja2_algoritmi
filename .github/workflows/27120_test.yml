@@ -56,6 +56,3 @@ jobs:
           if [[ $? -ne 0 ]]; then
             echo "Napaka pri izvajanju programa"
           fi
-
-    - name: Show napaka.txt content
-      run: cat napaka.txt
