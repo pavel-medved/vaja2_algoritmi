@@ -20,23 +20,16 @@ jobs:
       run: sudo apt-get update && sudo apt-get install -y cmake g++
 
     - name: Configure CMake
-      run: cmake -B build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} .
+      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} ${{github.workspace}}
 
     - name: Build
-      run: cmake --build ./ --config ${{env.BUILD_TYPE}}
+      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
     - name: Compile Main
-      run: g++ main.cpp test.cpp -o main
+      run: g++ main.cpp test.cpp -o build/main
 
     - name: Run Found Executable
-      run: |
-          ./main test_kmp "znanstveniki" cmake-build-debug/test-besedilo.txt
-          if [[ $? -ne 0 ]]; then
-            echo "Napaka pri izvajanju programa" > napaka.txt
-          fi
-
-    - name: Show error output
-      run: cat napaka.txt
+      run: ${{github.workspace}}/build/main 1 "znanstveniki" ${GITHUB_WORKSPACE}/cmake-build-debug/test-besedilo.txt
 
     - name: Show output.txt content
       run: cat out.txt
