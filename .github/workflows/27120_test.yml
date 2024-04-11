@@ -11,6 +11,20 @@ env:
   BUILD_TYPE: Release
 
 jobs:
+  jobs:
+  check_test_file:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Check if test script exists
+      run: |
+        if [ ! -f "test.cpp" ]; then
+          echo "Test script 'test.cpp' not found."
+          exit 1
+        fi
+
   build:
     runs-on: self-hosted
     steps:
@@ -32,7 +46,7 @@ jobs:
       run: |
           ${{github.workspace}}/build/main test_kmp "znanstveniki" ${GITHUB_WORKSPACE}/cmake-build-debug/test-besedilo.txt
           if [[ $? -ne 0 ]]; then
-            echo "Napaka pri izvajanju programa" > napaka.txt
+            echo "Napaka pri izvajanju programa"
           fi
     - name: Show napaka.txt content
       run: cat napaka.txt
