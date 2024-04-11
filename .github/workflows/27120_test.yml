@@ -13,7 +13,7 @@ env:
 jobs:
   jobs:
   check_test_file:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
@@ -21,8 +21,7 @@ jobs:
     - name: Check if test script exists
       run: |
         if [ ! -f "test.cpp" ]; then
-          echo "Test script 'test.cpp' not found."
-          exit 1
+          echo "Test file not found" > napaka.txt
         fi
 
   build:
@@ -30,6 +29,13 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
+     - name: Check for errors
+      run: |
+        if [ -f "napaka.txt" ]; then
+          if [ "$(cat napaka.txt)" = "Test file not found" ]; then
+            echo "Napaka: Test file not found"
+          exit 1
+        fi
     - name: Install CMake
       run: sudo apt-get update && sudo apt-get install -y cmake g++
 
