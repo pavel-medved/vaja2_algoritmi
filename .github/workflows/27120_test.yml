@@ -29,7 +29,10 @@ jobs:
       run: g++ main.cpp test.cpp -o build/main
 
     - name: Run Found Executable
-      run: ${{github.workspace}}/build/main 1 "znanstveniki" ${GITHUB_WORKSPACE}/cmake-build-debug/test-besedilo.txt
-
-    - name: Show output.txt content
-      run: cat out.txt
+      run: |
+          ${{github.workspace}}/build/main test_kmp "znanstveniki" ${GITHUB_WORKSPACE}/cmake-build-debug/test-besedilo.txt
+          if [[ $? -ne 0 ]]; then
+            echo "Napaka pri izvajanju programa" > napaka.txt
+          fi
+    - name: Show napaka.txt content
+      run: cat napaka.txt
