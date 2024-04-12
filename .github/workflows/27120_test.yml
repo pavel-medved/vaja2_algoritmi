@@ -3,9 +3,6 @@ name: CMake on a single platform
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-  workflow_dispatch:
 
 env:
   BUILD_TYPE: Release
@@ -14,45 +11,61 @@ jobs:
   check_test_file:
     runs-on: self-hosted
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Check if test script exists
-      run: |
-        if [ ! -f "test.cpp" ]; then
-          echo "Test file not found" > napaka.txt
-        fi
+      - name: Check if test script exists
+        run: |
+          if [ ! -f "test.cpp" ]; then
+            echo "Test file not found" > napaka.txt
+          fi
 
-  build:
-    needs: check_test_file  # Dodana namera 'needs' tukaj
-    runs-on: self-hosted
+  build_and_test:
+    runs-on: ${{ matrix.os }} 
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]  
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: Check for errors
-      run: |
-        if [ -f "napaka.txt" ]; then
-          if [ "$(cat napaka.txt)" = "Test file not found" ]; then
-            echo "Napaka: Test file not found"
-            exit 1
+      - name: Check for errors
+        run: |
+          if [ -f "napaka.txt" ]; then
+            if [ "$(cat napaka.txt)" = "Test file not found" ]; then
+              echo "Napaka: Test file not found"
+              exit 1
+            fi
           fi
-        fi
 
-    - name: Install CMake
-      run: sudo apt-get update && sudo apt-get install -y cmake g++
-
-    - name: Configure CMake
-      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} ${{github.workspace}}
-
-    - name: Build
-      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
-
-    - name: Compile Main
-      run: g++ main.cpp test.cpp -o build/main
-
-    - name: Run Found Executable
-      run: |
-          ${{github.workspace}}/build/main test_kmp "znanstveniki" ${GITHUB_WORKSPACE}/cmake-build-debug/test-besedilo.txt
-          if [[ $? -ne 0 ]]; then
-            echo "Napaka pri izvajanju programa"
+      - name: Install CMake
+        run: |
+          if [ "${{ matrix.os }}" == "ubuntu-latest" ]; then
+            sudo apt-get update && sudo apt-get install -y cmake g++
+          elif [ "${{ matrix.os }}" == "windows-latest" ]; then
+            choco install cmake
+          elif [ "${{ matrix.os }}" == "macos-latest" ]; then
+            brew install cmake
           fi
+
+      - name: Configure CMake
+        run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} ${{github.workspace}}
+
+      - name: Build
+        run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+
+      - name: Compile Main
+        run: g++ main.cpp test.cpp -o build/main
+
+      - name: Run first test
+        run: |
+            ${{github.workspace}}/build/main test_kmp "znanstveniki" ${GITHUB_WORKSPACE}/cmake-build-debug/test-besedilo.txt
+            if [[ $? -ne 0 ]]; then
+              echo "Napaka pri izvajanju programa"
+            fi
+
+      - name: Run second test
+        run: |
+            ${{github.workspace}}/build/main test_sunday "znanstveniki" ${GITHUB_WORKSPACE}/cmake-build-debug/test-besedilo.txt
+            if [[ $? -ne 0 ]]; then
+              echo "Napaka pri izvajanju programa"
+            fi
