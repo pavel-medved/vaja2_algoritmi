@@ -67,7 +67,7 @@ jobs:
       shell: bash
       run: |
           if [ "${RUNNER_OS}" == "Windows" ]; then
-            ${{github.workspace}}\build\main test_kmp "znanstveniki" ${{github.workspace}}\cmake-build-debug\test-besedilo.txt
+            "${{github.workspace}}/build/main" test_kmp "znanstveniki" "${GITHUB_WORKSPACE}/cmake-build-debug/test-besedilo.txt"
           else 
            ${{github.workspace}}/build/main test_kmp "znanstveniki" ${GITHUB_WORKSPACE}/cmake-build-debug/test-besedilo.txt
           fi
@@ -76,7 +76,7 @@ jobs:
       shell: bash
       run: |
           if [ "${RUNNER_OS}" == "Windows" ]; then
-            ${{github.workspace}}\build\main test_kmp "znanstveniki" ${{github.workspace}}\cmake-build-debug\test-besedilo.txt
+            "${{github.workspace}}/build/main" test_kmp "znanstveniki" "${GITHUB_WORKSPACE}/cmake-build-debug/test-besedilo.txt"
           else 
             ${{github.workspace}}/build/main test_sunday "znanstveniki" ${GITHUB_WORKSPACE}/cmake-build-debug/test-besedilo.txt
           fi
