@@ -33,7 +33,7 @@ jobs:
 
       - name: Run first test
         run: |
-            ${{github.workspace}}/build/main test_kmp "znanstveniki" ${GITHUB_WORKSPACE}/cmake-build-debug/test-besedilo.txt
+            ${{github.workspace}}/build/main test_kmp "znanstveniki" ${GITHUB_WORKSPACE}\cmake-build-debug\test-besedilo.txt
       
       - name: Print current directory path and list directories
         shell: bash
