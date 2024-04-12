@@ -11,6 +11,7 @@ bool test(const string &algorithm) {
 
     if (algorithm == "test_kmp") {
         if (testKmp != algorithmResult) {
+            std::cout<<algorithmResult<<endl;
             std::cout << "neuspesno";
             return false;
         } else {
@@ -19,6 +20,7 @@ bool test(const string &algorithm) {
         }
     } else if (algorithm == "test_sunday") {
         if (testSunday != algorithmResult) {
+            std::cout<<algorithmResult<<endl;
             std::cout << "neuspesno";
             return false;
         } else {

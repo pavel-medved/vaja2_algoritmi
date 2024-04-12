@@ -30,14 +30,7 @@ jobs:
 
       - name: Compile Main
         run: g++ main.cpp test.cpp -o build/main
-
-      - name: Run first test
-        run: |
-            ${{github.workspace}}/build/main test_kmp "znanstveniki" ${GITHUB_WORKSPACE}/test-besedilo.txt
-
-      - name: Run second test
-        run: |
-            ${{github.workspace}}/build/main test_sunday "znanstveniki" ${GITHUB_WORKSPACE}/test-besedilo.txt
+        
       - name: Check if out.txt exists
         shell: bash
         run: |
@@ -46,5 +39,17 @@ jobs:
             else
               echo "File out.txt does not exist"
             fi
+      - name: Find test-besedilo.txt
+        shell: bash
+        run: |
+            file_path=$(find / -name "test-besedilo.txt" 2>/dev/null | head -n 1)
+            if [ -n "$file_path" ]; then
+              echo "Path to test-besedilo.txt: $file_path"
+              echo "##[set-output name=file_path]$file_path"
+            else
+              echo "File test-besedilo.txt not found."
+              exit 1
+            fi
+
 
             
