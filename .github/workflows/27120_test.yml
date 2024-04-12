@@ -70,7 +70,7 @@ jobs:
             ${{github.workspace}}/build/main test_kmp "znanstveniki" ${{github.workspace}}\cmake-build-debug\test-besedilo.txt
           else 
            ${{github.workspace}}/build/main test_kmp "znanstveniki" ${GITHUB_WORKSPACE}/cmake-build-debug/test-besedilo.txt
-         
+          fi
 
     - name: Run second test
       shell: bash
@@ -79,3 +79,4 @@ jobs:
             ${{github.workspace}}/build/main test_kmp "znanstveniki" ${{github.workspace}}\cmake-build-debug\test-besedilo.txt
           else 
             ${{github.workspace}}/build/main test_sunday "znanstveniki" ${GITHUB_WORKSPACE}/cmake-build-debug/test-besedilo.txt
+          fi
