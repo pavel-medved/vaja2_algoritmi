@@ -2,7 +2,7 @@ name: Docker and Deploy
 
 on:
   workflow_run:
-    workflows: ["CMake on a single platform"]
+    workflows: ["CMake"]
     types:
       - completed
 env:
@@ -23,7 +23,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build Docker image
-        run: docker build -t my-cmake-project .
+        run: docker build -t kmp_sunday .
 
       - name: Push Docker image to DockerHub
-        run: docker push my-cmake-project 
+        run: docker push kmp_sunday
