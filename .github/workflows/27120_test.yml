@@ -33,9 +33,18 @@ jobs:
 
       - name: Run first test
         run: |
-            ${{github.workspace}}/build/main test_kmp "znanstveniki" ${GITHUB_WORKSPACE}/cmake-build-debug/test-besedilo.txt
+            ${{github.workspace}}/build/main test_kmp "znanstveniki" ${GITHUB_WORKSPACE}/test-besedilo.txt
 
       - name: Run second test
         run: |
-            ${{github.workspace}}/build/main test_sunday "znanstveniki" ${GITHUB_WORKSPACE}/cmake-build-debug/test-besedilo.txt
+            ${{github.workspace}}/build/main test_sunday "znanstveniki" ${GITHUB_WORKSPACE}/test-besedilo.txt
+      - name: Check if out.txt exists
+        shell: bash
+        run: |
+            if [ -f "out.txt" ]; then
+              echo "File out.txt exists"
+            else
+              echo "File out.txt does not exist"
+            fi
+
             
