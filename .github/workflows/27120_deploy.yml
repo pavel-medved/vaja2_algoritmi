@@ -5,6 +5,7 @@ on:
     workflows: ["CMake"]
     types:
       - completed
+
 env:
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
@@ -14,9 +15,10 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
+        
       - name: Login to DockerHub
-         run: |
+        run: |
           docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
           
       - name: Build Docker image
