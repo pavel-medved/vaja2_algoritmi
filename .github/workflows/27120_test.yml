@@ -12,7 +12,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]  
+        os: [macos-latest] 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -27,29 +27,25 @@ jobs:
     runs-on: ${{ matrix.os }} 
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]  
+        os: [macos-latest] 
     steps:
       - uses: actions/checkout@v3
 
       - name: Install CMake
         run: |
           case "${{ matrix.os }}" in
-           "ubuntu-latest")
-             sudo apt-get update && sudo apt-get install -y cmake g++
-             ;;
-           "windows-latest")
-             choco install cmake
-             ;;
-           "macos-latest")
+           "macos-latest") 
              brew install cmake
              ;;
           esac
-       # shell: pwsh 
+
       - name: Configure CMake
         run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} ${{github.workspace}}
 
       - name: Build
-        run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+        run: |
+        echo "Current working directory: $(pwd)"
+        cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} --verbose
 
       - name: Compile Main
         run: g++ main.cpp test.cpp -o build/main
