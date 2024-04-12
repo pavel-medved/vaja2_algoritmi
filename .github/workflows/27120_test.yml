@@ -8,20 +8,6 @@ env:
   BUILD_TYPE: Release
 
 jobs:
-  check_test_file:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [windows-latest] 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Check if test script exists
-        run: |
-          if not exist "test.cpp" (
-            echo Test file not found > napaka.txt
-          )
 
   build_and_test:
     runs-on: ${{ matrix.os }} 
@@ -48,13 +34,8 @@ jobs:
       - name: Run first test
         run: |
             ${{github.workspace}}/build/main test_kmp "znanstveniki" ${GITHUB_WORKSPACE}/cmake-build-debug/test-besedilo.txt
-            if %ERRORLEVEL% NEQ 0 (
-              echo Napaka pri izvajanju programa
-            )
 
       - name: Run second test
         run: |
             ${{github.workspace}}/build/main test_sunday "znanstveniki" ${GITHUB_WORKSPACE}/cmake-build-debug/test-besedilo.txt
-            if %ERRORLEVEL% NEQ 0 (
-              echo Napaka pri izvajanju programa
-            )
+            

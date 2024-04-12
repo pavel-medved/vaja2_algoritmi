@@ -26,6 +26,7 @@ bool test(const string &algorithm) {
             return true;
         }
     }
+    return false;
 }
 
 
