@@ -31,24 +31,12 @@ jobs:
       - name: Compile Main
         run: g++ main.cpp test.cpp -o build/main
 
-      - name: Check if out.txt exists
-        shell: bash
+      - name: Run first test
         run: |
-            if [ -f "out.txt" ]; then
-              echo "File out.txt exists"
-            else
-              echo "File out.txt does not exist"
+            ${{github.workspace}}/build/main test_kmp "znanstveniki" ${GITHUB_WORKSPACE}/cmake-build-debug/test-besedilo.txt
+            if [[ $? -ne 0 ]]; then
+             echo "Napaka pri izvajanju programa"
             fi
-      - name: Find test-besedilo.txt
-        shell: pwsh
-        run: |
-            $filePath = Get-ChildItem -Path "C:\" -Recurse -Filter "test-besedilo.txt" -ErrorAction SilentlyContinue | Select-Object -First 1 -ExpandProperty FullName
-              if ($filePath) {
-                Write-Output "Path to test-besedilo.txt: $filePath"
-                Write-Output "##[set-output name=file_path]$filePath"
-            } else {
-                Write-Output "File test-besedilo.txt not found."
-              }
 
 
             
