@@ -12,32 +12,27 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-latest] 
+        os: [windows-latest] 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Check if test script exists
         run: |
-          if [ ! -f "test.cpp" ]; then
-            echo "Test file not found" > napaka.txt
-          fi
+          if not exist "test.cpp" (
+            echo Test file not found > napaka.txt
+          )
 
   build_and_test:
     runs-on: ${{ matrix.os }} 
     strategy:
       matrix:
-        os: [macos-latest] 
+        os: [windows-latest] 
     steps:
       - uses: actions/checkout@v3
 
       - name: Install CMake
-        run: |
-          case "${{ matrix.os }}" in
-           "macos-latest") 
-             brew install cmake
-             ;;
-          esac
+        run: choco install cmake
 
       - name: Configure CMake
         run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} ${{github.workspace}}
@@ -53,13 +48,13 @@ jobs:
       - name: Run first test
         run: |
             ${{github.workspace}}/build/main test_kmp "znanstveniki" ${GITHUB_WORKSPACE}/cmake-build-debug/test-besedilo.txt
-            if [[ $? -ne 0 ]]; then
-              echo "Napaka pri izvajanju programa"
-            fi
+            if %ERRORLEVEL% NEQ 0 (
+              echo Napaka pri izvajanju programa
+            )
 
       - name: Run second test
         run: |
             ${{github.workspace}}/build/main test_sunday "znanstveniki" ${GITHUB_WORKSPACE}/cmake-build-debug/test-besedilo.txt
-            if [[ $? -ne 0 ]]; then
-              echo "Napaka pri izvajanju programa"
-            fi
+            if %ERRORLEVEL% NEQ 0 (
+              echo Napaka pri izvajanju programa
+            )
