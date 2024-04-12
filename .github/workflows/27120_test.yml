@@ -44,8 +44,8 @@ jobs:
 
       - name: Build
         run: |
-        echo "Current working directory: $(pwd)"
-        cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} --verbose
+          echo "Current working directory: $(pwd)"
+          cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} --verbose
 
       - name: Compile Main
         run: g++ main.cpp test.cpp -o build/main
