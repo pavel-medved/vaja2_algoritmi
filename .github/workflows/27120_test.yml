@@ -30,12 +30,23 @@ jobs:
 
       - name: Check for errors
         run: |
-          if [ -f "napaka.txt" ]; then
-            if [ "$(cat napaka.txt)" = "Test file not found" ]; then
-              echo "Napaka: Test file not found"
-              exit 1
-            fi
-          fi
+          if [ "${{ matrix.os }}" == "ubuntu-latest" ] || [ "${{ matrix.os }}" == "macos-latest" ]; then
+             if [ -f "napaka.txt" ]; then
+                if [ "$(cat napaka.txt)" = "Test file not found" ]; then
+                  echo "Napaka: Test file not found"
+                  exit 1
+                fi
+              fi
+          elif [ "${{ matrix.os }}" == "windows-latest" ]; then
+            if Test-Path "napaka.txt" {
+              $content = Get-Content "napaka.txt"
+              if ($content -eq "Test file not found") {
+                Write-Host "Napaka: Test file not found"
+                 exit 1
+               }
+            }
+           fi
+        shell: pwsh
 
       - name: Install CMake
         run: |
