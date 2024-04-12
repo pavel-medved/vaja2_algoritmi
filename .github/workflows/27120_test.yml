@@ -30,7 +30,7 @@ jobs:
 
       - name: Compile Main
         run: g++ main.cpp test.cpp -o build/main
-        
+
       - name: Check if out.txt exists
         shell: bash
         run: |
@@ -40,16 +40,15 @@ jobs:
               echo "File out.txt does not exist"
             fi
       - name: Find test-besedilo.txt
-        shell: bash
+        shell: pwsh
         run: |
-            file_path=$(find / -name "test-besedilo.txt" 2>/dev/null | head -n 1)
-            if [ -n "$file_path" ]; then
-              echo "Path to test-besedilo.txt: $file_path"
-              echo "##[set-output name=file_path]$file_path"
-            else
-              echo "File test-besedilo.txt not found."
-              exit 1
-            fi
+            $filePath = Get-ChildItem -Path "C:\" -Recurse -Filter "test-besedilo.txt" -ErrorAction SilentlyContinue | Select-Object -First 1 -ExpandProperty FullName
+              if ($filePath) {
+                Write-Output "Path to test-besedilo.txt: $filePath"
+                Write-Output "##[set-output name=file_path]$filePath"
+            } else {
+                Write-Output "File test-besedilo.txt not found."
+              }
 
 
             
