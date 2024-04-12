@@ -15,7 +15,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-
       - name: Login to DockerHub
         uses: docker/login-action@v2
         with:
@@ -24,6 +23,6 @@ jobs:
 
       - name: Build Docker image
         run: docker build -t kmp_sunday .
-
+ 
       - name: Push Docker image to DockerHub
         run: docker push kmp_sunday
