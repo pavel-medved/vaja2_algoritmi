@@ -38,7 +38,7 @@ jobs:
                 fi
               fi
           elif [ "${ matrix.os }" == "windows-latest" ]; then
-            if Test-Path "napaka.txt" {
+            if (Test-Path "napaka.txt") {
               $content = Get-Content "napaka.txt"
               if ($content -eq "Test file not found") {
                 Write-Host "Napaka: Test file not found"
