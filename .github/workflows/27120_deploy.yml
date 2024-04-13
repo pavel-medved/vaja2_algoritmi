@@ -27,7 +27,7 @@ jobs:
         run: echo "date=$(date +'%Y-%m-%d--%M-%S')" >> "$GITHUB_ENV"
 
       - name: Build Docker image
-        run: docker build . --file Dockerfile --tag $DOCKER_USERNAME/$REPONAME:$date
+        run: docker build -t $DOCKER_USERNAME/$REPONAME:$date .
 
       - name: Push Docker image to DockerHub
         run: docker push $DOCKER_USERNAME/$REPONAME:$date
