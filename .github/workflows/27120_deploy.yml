@@ -26,4 +26,4 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Push Docker image to DockerHub
-        run: docker push kmp_sunday
+        run: docker push pavelmedved/kmp_sunday:latest
