@@ -13,4 +13,4 @@ RUN cmake -Bbuild -DCMAKE_BUILD_TYPE=Release .
 
 RUN cmake --build build
 
-CMD ["./build/main", 0, "znanstveniki", "/app/cmake-build-debug/test-besedilo.txt"]
+CMD ["./build/main", "0", "znanstveniki", "/app/cmake-build-debug/test-besedilo.txt"]
