@@ -2,22 +2,22 @@ name: CMake
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main" ] #definiramo kdaj se bo skripta izvedla torej ob pushu na main vejo
 
 env:
   BUILD_TYPE: Release
 
 jobs:
   check_test_file:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }} 
     strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+      matrix: #vkljucimo matriko
+        os: [ubuntu-latest, windows-latest, macos-latest] #operacijski sistemi na katerih se bo izvajala skripta
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+    - name: Checkout repository 
+      uses: actions/checkout@v3 # zagotovimo dostop do kode
 
-    - name: Check if test script exists
+    - name: Check if test script exists # preverimo ce obstaja testna skripta in zapisemo vsebino v napaka.txt ce testna skripta ne obstaja
       shell: bash
       run: |
         if [ ! -f "test.cpp" ]; then
@@ -33,7 +33,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Check for errors
+    - name: Check for errors #preverimo ce obstaja napaka.txt in nato njeno vsebino, ce je prisllo v prvem poslu do ugotovitve da testna skripta ne obstaja prekinemo izvajanje
       shell: bash
       run: |
         if [ -f "napaka.txt" ]; then
@@ -43,7 +43,7 @@ jobs:
           fi
         fi
 
-    - name: Install CMake
+    - name: Install CMake #namestitev Cmake na ustrezen OS
       shell: bash
       run: |
         if [ "$RUNNER_OS" == "Windows" ]; then
@@ -54,25 +54,25 @@ jobs:
           brew install cmake
         fi
 
-    - name: Configure CMake
-      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} ${{github.workspace}}
+    - name: Configure CMake 
+      run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} ${{github.workspace}} #konfiguracija Cmake
 
     - name: Build
-      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} #gradnja projekta ki jo zapisemo v mapo build
 
     - name: Compile Main
-      run: g++ main.cpp test.cpp -o build/main
+      run: g++ main.cpp test.cpp -o build/main #prevajanje projekta
 
-    - name: Run first test
+    - name: Run first test #zazenemo teste z argumenti za algoritem kmp, za windows malenkost drugace torej z dodatnimi narekovaji
       shell: bash
       run: |
           if [ "${RUNNER_OS}" == "Windows" ]; then
-            "${{github.workspace}}/build/main" test_kmp "znanstveniki" "${GITHUB_WORKSPACE}/cmake-build-debug/test-besedilo.txt"
+            "${{github.workspace}}/build/main" test_kmp "znan" "${GITHUB_WORKSPACE}/cmake-build-debug/test-besedilo.txt"
           else 
-           ${{github.workspace}}/build/main test_kmp "znanstveniki" ${GITHUB_WORKSPACE}/cmake-build-debug/test-besedilo.txt
+           ${{github.workspace}}/build/main test_kmp "znan" ${GITHUB_WORKSPACE}/cmake-build-debug/test-besedilo.txt
           fi
 
-    - name: Run second test
+    - name: Run second test #zazenemo teste z argumenti za algoritem sunday search
       shell: bash
       run: |
           if [ "${RUNNER_OS}" == "Windows" ]; then
