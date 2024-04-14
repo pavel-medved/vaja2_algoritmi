@@ -5,6 +5,10 @@ on:
     workflows: ["CMake"]
     types:
       - completed #skripta se pricne ko se Cmake torej prejsna skripta zakljuci
+    branches: 
+      - main
+    status: 
+      - success
 env:
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
   DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
