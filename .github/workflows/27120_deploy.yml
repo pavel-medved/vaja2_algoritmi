@@ -9,7 +9,7 @@ on:
 jobs:
   deploy:
     runs-on: self-hosted #izvajamo na lastnem action runnerju
-    if: github.event.worklow_run.conclusion == 'success'
+    if: github.event.worklow_run.conclusion == 'success' #preverimo ce se je skripta uspesno izvedla
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
