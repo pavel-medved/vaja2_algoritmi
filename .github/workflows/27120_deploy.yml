@@ -5,18 +5,11 @@ on:
     workflows: ["CMake"]
     types:
       - completed #skripta se pricne ko se Cmake torej prejsna skripta zakljuci
-    branches: 
-      - main
-    status: 
-      - success
-env:
-  DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-  DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-  REPONAME: ${{ secrets.REPO_NAME }}
-  #definiramo spremenljivke za docker ime,geslo in ime repozitorija
+
 jobs:
   deploy:
     runs-on: self-hosted #izvajamo na lastnem action runnerju
+    if: github.event.worklow_run.conclusion == 'success'
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
